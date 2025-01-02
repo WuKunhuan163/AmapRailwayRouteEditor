@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <style>
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+    }
+    .color-editor {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        display: none;
+        z-index: 1000;
+        cursor: move;
+        user-select: none;
+    }
+
+    .color-editor-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        cursor: move;
+    }
+
+    .color-preview {
+        width: 50px;
+        height: 50px;
+        border: 1px solid #ccc;
+        margin: 10px 0;
+        border-radius: 4px;
+    }
+
+    .slider-container {
+        margin: 15px 0;
+    }
+
+    .slider-container label {
+        display: inline-block;
+        width: 20px; 
+    }
+
+    .color-slider {
+        width: 200px;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 8px;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    .color-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid rgb(var(--slider-color, 76, 175, 80));
+        cursor: pointer;
+    }
+
+    .color-value {
+        display: inline-block;
+        width: 30px;
+        text-align: right;
+    }
+
+    /* Specific styles for each slider's track */
+    #redSlider {
+        background: linear-gradient(to right, rgb(0,0,0), rgb(255,0,0));
+    }
+
+    #greenSlider {
+        background: linear-gradient(to right, rgb(0,0,0), rgb(0,255,0));
+    }
+
+    #blueSlider {
+        background: linear-gradient(to right, rgb(0,0,0), rgb(0,0,255));
+    }
+
+    @media (max-width: 336px) {
+        .color-editor {
+            left: 10px;
+            right: 10px;
+            padding: 20px 10px 20px 10px;
+            min-width: 160px;
+        }
+        .color-slider {
+            width: calc(100% - 60px);
+        }
+    }
+    </style>
+    <title>Amap Railway Route Planner</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <link rel="icon" href="assets/images/railway.png">
+    <script src="https://webapi.amap.com/maps?v=2.0&key=7eb5d7683b1644871030b447e7a1df8f&plugin=AMap.PolylineEditor"></script>
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+
+
+<div id="container"></div>
+<div class="input-card" style="width: 120px">
+    <button class="btn" id="createPolylineBtn" style="margin-bottom: 5px">新建路线(N)</button>
+    <button class="btn" id="deletePolylineBtn" style="margin-bottom: 5px">删除路线(D)</button>
+    <button class="btn" id="addCheckpointBtn" style="margin-bottom: 5px">添加站点(A)</button>
+    <button class="btn" id="importpolylineDatasBtn" style="margin-bottom: 5px">导入路线(I)</button>
+    <button class="btn" id="copyPathBtn" style="margin-bottom: 5px">导出路线(E)</button>
+    <button class="btn" id="copyMapBtn">导出地图(^E)</button>
+</div>
+<div id="colorEditor" class="color-editor">
+    <div class="color-editor-title">Edit Line</div>
+    <div id="colorPreview" class="color-preview"></div>
+    <div class="slider-container">
+        <label>R:</label>
+        <input type="range" min="0" max="255" value="220" class="color-slider" id="redSlider">
+        <span id="redValue" class="color-value">220</span>
+    </div>
+    <div class="slider-container">
+        <label>G:</label>
+        <input type="range" min="0" max="255" value="195" class="color-slider" id="greenSlider">
+        <span id="greenValue" class="color-value">195</span>
+    </div>
+    <div class="slider-container">
+        <label>B:</label>
+        <input type="range" min="0" max="255" value="36" class="color-slider" id="blueSlider">
+        <span id="blueValue" class="color-value">36</span>
+    </div>
+</div>
+<script type="module" src="assets/scripts/main.mjs"></script>
+
+
+
+</body>
+</html>
